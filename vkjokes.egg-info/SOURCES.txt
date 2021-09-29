@@ -1,0 +1,9 @@
+README.md
+setup.py
+vkjokes.py
+vkjokes.egg-info/PKG-INFO
+vkjokes.egg-info/SOURCES.txt
+vkjokes.egg-info/dependency_links.txt
+vkjokes.egg-info/entry_points.txt
+vkjokes.egg-info/requires.txt
+vkjokes.egg-info/top_level.txt
