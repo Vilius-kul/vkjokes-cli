@@ -8,9 +8,9 @@ class JokeManager:
         self.joke_count = joke_count
         self.lang = lang
         
-    def fetch_jokes(self,joke_count,lang) -> List[str]:
-        jokes_in_english = JokeApi.multiple_jokes(joke_count)
-        if lang == '':
+    def fetch_jokes(self) -> List[str]:
+        jokes_in_english = JokeApi.multiple_jokes(self.joke_count)
+        if self.lang == '':
             return jokes_in_english
         else:
             return [self._translate_joke(joke) for joke in jokes_in_english]

@@ -1,9 +1,9 @@
 from pydantic import BaseModel, validator
 from typing import Optional
 
-class MultipleJokesRequestParams(BaseModel):
+class VkJokesParams(BaseModel):
     count: int
-    language: Optional[str]
+    lang: Optional[str]
 
     @validator('count')
     def is_in_range(cls, value):
@@ -12,9 +12,9 @@ class MultipleJokesRequestParams(BaseModel):
         return value
 
     #language selection validation limited to 4 languages
-    @validator('language')
+    @validator('lang')
     def language_validator(cls, value):
-        language_selection = ['pl','lt','da','ru']
+        language_selection = ['','pl','lt','da','ru']
         if value.lower() not in language_selection:
             raise ValueError("Wrong input! Please type 'pl' for Polish,'lt' for Lithuanian, 'da' for Danish or 'ru' for Russian")
         return value.lower()
