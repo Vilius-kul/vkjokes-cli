@@ -1,8 +1,6 @@
-from clients import Switch
+from clients import JokeManager
 
 import click
-
-
 
 @click.group()
 def cli():
@@ -16,51 +14,10 @@ def cli():
 @click.option('--lang',default='',help='--lang <lt,pl,da or ru>')
 def random(count, lang):
     """Returns  1 random Joke!\n
-    [OPTIONS] out --count and --lang """
-    click.echo(Switch.input_switch(count,lang))
+    [OPTIONS] out --count and --lang """    
+    joke_manager = JokeManager(count, lang)
+    fetched_jokes =joke_manager.fetch_jokes(count, lang)
+    for joke in fetched_jokes:
+        click.echo(joke)
     
 cli.add_command(random)
-
-
-
-
-
-### Other way of doing same######
-# @click.command()
-# def random_joke():
-#     endpoint = 'random-joke'
-#     url = base_url + endpoint
-#     r = requests.get(url)
-#     click.echo(r.text)
-    
-# @click.command()
-# def random_5_jokes():
-#     endpoint = 'random-5-jokes'
-#     url = base_url + endpoint
-#     r = requests.get(url)
-#     click.echo(r.text)
-    
-# @click.command()
-# @click.option('--count', default=1, help='type --count <number of jokes>')
-# def multi_random_jokes(count):
-#     endpoint = 'multi-random-jokes'
-#     url = base_url + endpoint
-#     payload = {'count': count}
-#     r = requests.get(url, params=payload)
-#     click.echo(r.text)
-    
-    
-# @click.command()
-# @click.option('--count', default=1, help="--count <number of jokes>")
-# @click.argument('lang')
-# def multi_language_jokes(count, lang):
-#     endpoint = 'multi-language-jokes'
-#     url = base_url + endpoint
-#     payload = {'count': count,'language':lang}
-#     r = requests.get(url, params=payload)
-#     click.echo(r.text)
-    
-# cli.add_command(random_joke)
-# cli.add_command(random_5_jokes)
-# cli.add_command(multi_random_jokes)
-# cli.add_command(multi_language_jokes)

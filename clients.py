@@ -1,25 +1,26 @@
-import requests
+from typing import  List
+from src.clients import JokeApi
+from src.translate import Translator
 
-class Switch:
+class JokeManager:
     
-    base_url = 'http://127.0.0.1:5000/'
+    def __init__(self, joke_count: int, lang: str):
+        self.joke_count = joke_count
+        self.lang = lang
+        
+    def fetch_jokes(self,joke_count,lang) -> List[str]:
+        jokes_in_english = JokeApi.multiple_jokes(joke_count)
+        if lang == '':
+            return jokes_in_english
+        else:
+            return [self._translate_joke(joke) for joke in jokes_in_english]
+            
+        
+    # def  fetch_jokes(self) -> List[str]:
+    #     jokes_in_english = JokeApi.multiple_jokes(self.joke_count)
+    #     return [self._translate_joke(joke) for joke in jokes_in_english]
+        
+    def _translate_joke(self, joke: str):
+        return Translator.watson_translate(joke=joke, lang_input=self.lang)
     
-    @classmethod
-    def input_switch(cls, count, lang):
-        if count == 1 and lang == '':
-            endpoint = 'random-joke'
-            url = cls.base_url+endpoint
-            r = requests.get(url)
-            return r.text
-        if count > 1 and lang == '':
-            endpoint = 'multi-random-jokes'
-            url = cls.base_url + endpoint
-            payload = {'count': count}
-            r = requests.get(url, params=payload)
-            return r.text
-        if lang != '':
-            endpoint = 'multi-language-jokes'
-            url = cls.base_url + endpoint
-            payload = {'count': count,'language':lang}
-            r = requests.get(url, params=payload)
-            return r.text
+
