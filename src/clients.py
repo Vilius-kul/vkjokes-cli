@@ -12,21 +12,11 @@ class JokeApi:
         response = requests.get(url).json()
         joke = ''
         if response["type"] == "twopart":
-            joke += f"{response['setup']}... {response['delivery']}"
-            # return f"{response['setup']}... {response['delivery']}"
+            joke += f"{response['setup']}... {response['delivery']}"            
         else:
             joke += response["joke"]
             
         return joke
-        
-    #Returns 5 random jokes
-    @classmethod
-    def five_jokes(cls):
-        jokes =""
-        for j in range(6):
-            jokes+=cls.get_random_joke()
-        
-        return jokes
 
     #Returns multiple random jokes
     @classmethod

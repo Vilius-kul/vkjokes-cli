@@ -14,7 +14,7 @@ class VkJokesParams(BaseModel):
     #language selection validation limited to 4 languages
     @validator('lang')
     def language_validator(cls, value):
-        language_selection = ['','pl','lt','da','ru']
+        language_selection = ['pl','lt','da','ru']
         if value.lower() not in language_selection:
             raise ValueError("Wrong input! Please type 'pl' for Polish,'lt' for Lithuanian, 'da' for Danish or 'ru' for Russian")
         return value.lower()

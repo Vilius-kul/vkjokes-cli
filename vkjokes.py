@@ -13,23 +13,25 @@ def cli():
 
 @click.command()
 @click.option('--count',default=1, help='--count <int> number of jokes')
-@click.option('--lang',default='',help='--lang <lt,pl,da or ru>')
-def random(count, lang):
+@click.option('--lang',help='--lang <lt,pl,da or ru>')
+def random(count:int, lang):
     """Returns  1 random Joke!\n
-    [OPTIONS] out --count and --lang """
-    for_validation = {"count":count, "lang":lang}
+    [OPTIONS] out --count and --lang """    
+    if lang is None:
+        for_validation = {"count":count} #click.option if no input, returns None
+    else:
+        for_validation = {"count":count,"lang":lang}
+    
     try:
         validated = VkJokesParams(**for_validation)
-        joke_manager = JokeManager(validated.count,validated.lang)
-        fetched_jokes =joke_manager.fetch_jokes()
-        for joke in fetched_jokes:
-            click.echo(joke)  
+        
     except ValidationError as exc:
-        click.echo(str(exc))    
-         
-    # joke_manager = JokeManager(validated.count, lang)
-    # fetched_jokes =joke_manager.fetch_jokes(validated.count, lang)
-    # for joke in fetched_jokes:
-    #     click.echo(joke)
-    
+        click.echo(str(exc))
+        return
+            
+    joke_manager = JokeManager(validated.count,validated.lang)
+    fetched_jokes =joke_manager.fetch_jokes()
+    for joke in fetched_jokes:
+        click.echo(joke) #would like to return original(lang) joke next totranslated, but couldn't work it out!!       
+
 cli.add_command(random)
