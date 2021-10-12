@@ -7,7 +7,7 @@ class JokeApi:
     
     @classmethod
     def get_random_joke(cls):
-        endpoint= "any"
+        endpoint= "Any?blacklistFlags=nsfw,racist,sexist,explicit"
         url = urljoin(cls.base_url, endpoint)
         response = requests.get(url).json()
         joke = ''
