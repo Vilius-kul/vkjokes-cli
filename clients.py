@@ -3,7 +3,9 @@ from src.translate import Translator
 
 
 class JokeManager:
-    def __init__(self, joke_count: int, lang: str):
+    """Class, decision maker... Deciding if translator is needed"""
+
+    def __init__(self, joke_count, lang):
         self.joke_count = joke_count
         self.lang = lang
 
@@ -14,5 +16,5 @@ class JokeManager:
         else:
             return [self._translate_joke(joke) for joke in jokes_in_english]
 
-    def _translate_joke(self, joke: str):
-        return Translator.watson_translate(joke=joke, lang_input=self.lang)  # type: ignore
+    def _translate_joke(self, joke):
+        return Translator.watson_translate(joke=joke, lang_input=self.lang)

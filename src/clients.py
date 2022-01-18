@@ -4,6 +4,7 @@ import requests
 
 
 class JokeApi:
+    """Class responsible for calling external API as well as setting joke filters, returning joke or jokes"""
 
     base_url = "https://v2.jokeapi.dev/joke/"
 
@@ -22,8 +23,8 @@ class JokeApi:
 
     # Returns multiple random jokes
     @classmethod
-    def multiple_jokes(cls, user_input: int = 0) -> str:
+    def multiple_jokes(cls, user_input=0):
         jokes = []
-        for j in range(user_input):  # type: ignore
-            jokes.append(cls.get_random_joke())  # type: ignore
-        return jokes  # type: ignore
+        for j in range(user_input):
+            jokes.append(cls.get_random_joke())
+        return jokes

@@ -12,17 +12,19 @@ class Translator:
     )
 
     @classmethod
-    def watson_translate(cls, joke, lang_input):  # type: ignore
+    def watson_translate(cls, joke, lang_input):
 
         # Authentication
         cls.language_translator.set_service_url(TRANSLATION_URL)
         # translation via ibm_watson api
-        translation = cls.language_translator.translate(text=joke, source="en", target=lang_input).get_result()  # type: ignore
-        # from dict to str + new line after each joke
-        string = ""
+        translation = cls.language_translator.translate(
+            text=joke, source="en", target=lang_input
+        ).get_result()
+        # from dict to str
+        jokes_string = ""
         for j in translation["translations"]:  # type: ignore
-            string += j["translation"]  # type: ignore
-        return string
+            jokes_string += j["translation"]
+        return jokes_string
 
     # mock translator
     # @staticmethod

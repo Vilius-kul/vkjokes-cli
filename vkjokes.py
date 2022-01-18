@@ -25,18 +25,15 @@ def random(count: int, lang: str):
         for_validation = {"count": count, "lang": lang}
 
     try:
-        validated = VkJokesParams(**for_validation)  # type: ignore
-
+        validated = VkJokesParams(**for_validation)
     except ValidationError as exc:
-        click.echo(str(exc))  # type: ignore
+        click.echo(str(exc))
         return
 
-    joke_manager = JokeManager(validated.count, validated.lang)  # type: ignore
+    joke_manager = JokeManager(validated.count, validated.lang)
     fetched_jokes = joke_manager.fetch_jokes()
     for joke in fetched_jokes:
-        click.echo(  # type: ignore
-            joke
-        )  # would like to return original(lang) joke next totranslated, but couldn't work it out!!
+        click.echo(joke)
 
 
 cli.add_command(random)
