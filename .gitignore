@@ -1,0 +1,5 @@
+.venv
+__pycache__
+api.txt
+exports.sh
+.vscode
